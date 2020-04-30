@@ -1,0 +1,13 @@
+<h2>Content-Security-Policy tests img-src {{ test_id }}</h2>
+<p>
+    Please wait until all frames finished loading (or crashed) before clicking "Next test". <br />
+    Bitte warten Sie bis alle Frames fertig geladen (oder abgestürzt) sind bevor Sie auf "Next test" klicken.
+</p>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/none/" id="contentsecuritypolicytest-imgsrc-none-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/self/" id="contentsecuritypolicytest-imgsrc-self-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/http/" id="contentsecuritypolicytest-imgsrc-http-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/https/" id="contentsecuritypolicytest-imgsrc-https-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/host_valid/" id="contentsecuritypolicytest-imgsrc-host-valid-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/host_invalid_scheme/" id="contentsecuritypolicytest-imgsrc-host-invalidscheme-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/host_invalid_domain/" id="contentsecuritypolicytest-imgsrc-host-invaliddomain-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/imgsrc_setup/{{ test_id }}/host_invalid_port/" id="contentsecuritypolicytest-imgsrc-host-invalidport-iframe"></iframe>

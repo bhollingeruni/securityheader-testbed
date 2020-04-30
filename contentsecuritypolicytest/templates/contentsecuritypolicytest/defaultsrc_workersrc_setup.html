@@ -1,0 +1,33 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: worker-src {{ value }} <br />
+
+<script>
+    $(document).ready(function(){
+
+        if (window.Worker) {
+            var worker = new Worker("{{ current_origin}}/contentsecuritypolicytest/defaultsrc_workersrc_script/{{ test_id }}/{{ value }}_worker/");
+            var shared_worker = new SharedWorker("{{ current_origin}}/contentsecuritypolicytest/defaultsrc_workersrc_script/{{ test_id }}/{{ value }}_sharedworker/");
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register("{{ current_origin}}/contentsecuritypolicytest/defaultsrc_workersrc_script/{{ test_id }}/{{ value }}_registeredworker/");
+            }else {
+                save_result("{{ test_id }}", "contentsecuritypolicy_defaultsrc_workersrc_setup", "worker_register_not_supported")
+            }
+
+
+        } else {
+            save_result("{{ test_id }}", "contentsecuritypolicy_defaultsrc_workersrc_setup", "worker_not_supported")
+        }
+
+
+    });
+
+
+
+
+</script>

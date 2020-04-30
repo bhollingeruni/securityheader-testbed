@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'browsertest/style.css' %}">
+<script>
+    var test_results = {};
+    var test_id = "{{ test_id }}";
+    var subdomain_origin = "{{ subdomain_origin }}"
+    var current_origin = "{{ current_origin }}"
+    var current_secure_origin = "{{ current_secure_origin }}"
+</script>
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+<h1>Browsertest</h1>
+
+<dl>
+    <dt>
+        Test ID
+    </dt>
+    <dd>
+        {{ test_id }}
+    </dd>
+</dl>
+
+{% include "hststest/result_table.html" with test_id=test_id %}
+
+<div id="result">
+
+</div>
+
+<p>
+    This was the last test. Thank you for your participation! <br />
+    Dies war der letzte Test. Vielen Dank für Ihre Teilnahme!
+</p>

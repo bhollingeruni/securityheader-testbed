@@ -1,0 +1,10 @@
+<h2>Content-Security-Policy tests frame-ancestors {{ test_id }}</h2>
+<p>
+    Please wait until all frames finished loading (or crashed) before clicking "Next test". <br />
+    Bitte warten Sie bis alle Frames fertig geladen (oder abgestürzt) sind bevor Sie auf "Next test" klicken.
+</p>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_setup/{{ test_id }}/self/" id="contentsecuritypolicytest-frameancestors-self-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_setup/{{ test_id }}/host_valid/" id="contentsecuritypolicytest-frameancestors-host-valid-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_setup/{{ test_id }}/host_invalid_scheme/" id="contentsecuritypolicytest-frameancestors-host-invalidscheme-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_setup/{{ test_id }}/host_invalid_domain/" id="contentsecuritypolicytest-frameancestors-host-invaliddomain-iframe"></iframe>
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_setup/{{ test_id }}/host_invalid_port/" id="contentsecuritypolicytest-frameancestors-host-invalidport-iframe"></iframe>

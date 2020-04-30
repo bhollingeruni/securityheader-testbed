@@ -1,0 +1,24 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: frame-ancestors {{ value }}
+
+<iframe tabindex="-1" src="/contentsecuritypolicytest/frameancestors_frame_inner/{{ test_id }}/{{ value }}"></iframe>
+
+<script>
+    function contentsecuritypolicytest_frameancestors_check_outer(test_id, value) {
+        return $.ajax({
+            url: "/contentsecuritypolicytest/frameancestors_check/" + test_id + "/" + value + "_outer"
+        });
+    }
+
+    $(function(){
+        contentsecuritypolicytest_frameancestors_check_outer("{{ test_id }}", "{{ value }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+    });
+</script>

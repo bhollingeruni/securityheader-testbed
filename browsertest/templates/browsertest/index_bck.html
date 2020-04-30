@@ -1,0 +1,49 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'browsertest/style.css' %}">
+<script>
+    var test_results = {};
+    var test_id = "{{ test_id }}";
+</script>
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'browsertest/js-cookie-2.2.1.js' %}"></script>
+<!--
+<script src="{% static 'cookietest/script.js' %}"></script>
+<script src="{% static 'xframeoptionstest/script.js' %}"></script>
+<script src="{% static 'xcontenttypeoptionstest/script.js' %}"></script>
+-->
+<h1>Browsertest</h1>
+
+<dl>
+    <dt>
+        Test ID
+    </dt>
+    <dd>
+        {{ test_id }}
+    </dd>
+</dl>
+<!--
+{% include "cookietest/result_table.html" %}
+{% include "xframeoptionstest/result_table.html" with test_id=test_id %}
+{% include "xcontenttypeoptionstest/result_table.html" with test_id=test_id %}
+{% include "referrerpolicytest/result_table.html" with test_id=test_id %}
+-->
+<!--{% include "contentsecuritypolicytest/result_table.html" with test_id=test_id %}-->
+
+{% include "corstest/result_table.html" with test_id=test_id %}
+
+<div id="result">
+
+</div>
+
+<script type="application/javascript">
+
+    $.when(
+        //cookie_tests(),
+    ).done( function () {
+        $('#result').html('Tests finished');
+        console.log('Tests finished');
+        console.log(test_results);
+    });
+
+</script>
+

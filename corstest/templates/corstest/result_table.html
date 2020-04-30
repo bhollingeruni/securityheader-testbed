@@ -1,0 +1,7 @@
+<h2>CORS tests {{ test_id }}</h2>
+<p>
+    Please wait until all frames finished loading (or crashed) before clicking "Next test". <br />
+    Bitte warten Sie bis alle Frames fertig geladen (oder abgestürzt) sind bevor Sie auf "Next test" klicken.
+</p>
+<iframe tabindex="-1" src="/corstest/simple_setup/{{ test_id }}/" id="corstest-simple-iframe"></iframe>
+<iframe tabindex="-1" src="/corstest/complex_setup/{{ test_id }}/" id="corstest-complex-iframe"></iframe>

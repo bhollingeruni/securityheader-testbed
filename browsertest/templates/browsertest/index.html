@@ -1,0 +1,40 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'browsertest/style.css' %}">
+<h1>Browsertest</h1>
+
+<dl>
+    <dt>
+        Test ID
+    </dt>
+    <dd>
+        {{ test_id }}
+    </dd>
+</dl>
+
+<form action="/browsertest/test/{{ test_id }}/cookie/" method="POST">
+    {% csrf_token %}
+    <label for="device">
+        Please enter a short device description. If possible, please add the browser version. (e.g. "Samsung Smart TV Model 45, Browser version 2.0") - <br />
+        Bitte geben Sie eine kurze Beschreibung des Geräts ein. Falls möglich, bitte geben Sie die Browser-Version an. (z.B. "Samsung Smart TV Model 45, Browser version 2.0")
+    </label> <br />
+    <textarea type="text" name="device" id="device" class="simple-input"> </textarea>
+    <br />
+    <br />
+    <label for="device">Please enter a short identification (e.g. "Natalie Schmidt's TV").
+                        This information is only used to organize the sample collection and will be anonymized. - <br />
+                        Bitte identifizieren Sie das Gerät in Kürze (z.B. "Natalie Schmidts TV").
+                        Diese Information wird nur für Organisationszwecke verwendet und wird später anonymisiert werden.
+    </label>
+    <br />
+    <textarea name="notes" id="notes" class="simple-input"> </textarea>
+    <br />
+    <br />
+    <label for="device">Optional: how often do you use this device to access the internet? And to what purpose? (e.g. "I use it every morning to access my emails") - <br />
+                        Optional: wie oft verwenden Sie das Gerät, um auf das Internet zuzugreifen? Zu welchem Zweck? (z.B. "Ich verwende es, um jeden Morgen meine E-Mails abzurufen")
+    </label>
+    <br />
+    <textarea name="usage" id="usage" class="simple-input"> </textarea>
+    <br />
+    <br />
+    <input type="submit" value="Start test"/>
+</form>

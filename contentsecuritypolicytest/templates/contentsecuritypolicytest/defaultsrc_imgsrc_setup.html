@@ -1,0 +1,6 @@
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: default-src {{ value }} <br />
+
+<img src="/contentsecuritypolicytest/defaultsrc_check/{{ test_id }}/imgsrc_{{ value }}" width="50px">
+<img src="{{ external_origin }}/contentsecuritypolicytest/defaultsrc_check/{{ test_id }}/imgsrc_external_{{ value }}" width="50px">

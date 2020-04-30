@@ -1,0 +1,40 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: connect-src {{ value }} <br />
+
+<a href="#" id="ping-anchor-1" ping="/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_ping_current/"></a>
+<script>
+    $.ajax({
+        crossDomain: true,
+        url: "/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_xhr_current/"
+    });
+
+    var ws = new WebSocket("ws://{{ current_domain }}:{{ current_port }}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_websocket_current/");
+
+    var es = new EventSource("/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_eventsource_current/");
+
+    navigator.sendBeacon("/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_beacon_current/", {});
+</script>
+
+
+<a href="#" id="ping-anchor-2" ping="{{ external_origin }}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_ping_external/"></a>
+<script>
+    $.ajax({
+        crossDomain: true,
+        url: "{{ external_origin }}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_xhr_external/"
+    });
+
+    var ws = new WebSocket("ws://{{ external_domain }}:{{ external_port}}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_websocket_external/");
+
+    var es = new EventSource("{{ external_origin }}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_eventsource_external/");
+
+    navigator.sendBeacon("{{ external_origin }}/contentsecuritypolicytest/connectsrc_check/{{ test_id }}/{{ value }}_beacon_external/", {});
+</script>
+
+<script>
+    document.getElementById('ping-anchor-1').click();
+    document.getElementById('ping-anchor-2').click();
+</script>

@@ -1,0 +1,16 @@
+.idea
+.git_github
+.git_cispa
+results.log
+browsertest/__pycache__
+contentsecuritypolicytest/__pycache__
+cookietest/__pycache__
+corstest/__pycache__
+hststest/__pycache__
+referrerpolicytest/__pycache__
+saveresult/__pycache__
+testsuite/__pycache__
+xcontenttypeoptionstest/__pycache__
+xframeoptionstest/__pycache__
+analyzeresult/__pycache__
+db.json

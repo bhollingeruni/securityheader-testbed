@@ -1,0 +1,29 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+<h2>X-Content-Type-Options tests {{ test_id }}</h2>
+<dl>
+    <dt>
+        X-Content-Type-Options (none)
+    </dt>
+    <dd id="xcontenttypeoptions-none-result">
+        Test takes 1-3 seconds after this page finished loading (It will not be marked as such). <br />
+        Der Test benötigt 1-3 Sekunden (wird nicht als abgeschlossen markiert).
+    </dd>
+    <dt>
+        X-Content-Type-Options (nosniff)
+    </dt>
+    <dd id="xcontenttypeoptions-nosniff-result">
+        Test takes 1-3 seconds after this page finished loading (It will not be marked as such). <br />
+        Der Test benötigt 1-3 Sekunden (wird nicht als abgeschlossen markiert).
+    </dd>
+</dl>
+
+<script src="/xcontenttypeoptionstest/none_setup/{{ test_id }}/"></script>
+<script src="/xcontenttypeoptionstest/nosniff_setup/{{ test_id }}/"></script>
+
+<p>
+    Please wait 1-3 seconds after the page finished loading before clicking "Next". <br/>
+    Bitte warten Sie 1-3 Sekunden nachdem die Seite fertig geladen wurde bevor Sie auf "Next" klicken.
+</p>

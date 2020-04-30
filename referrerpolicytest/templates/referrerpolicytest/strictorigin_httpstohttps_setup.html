@@ -1,0 +1,18 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+<script src="{% static 'referrerpolicytest/script_strictorigin_setup.js'%}"></script>
+
+Header: referrer-policy <br />
+Value: strict-origin (HTTPS to HTTPS)
+
+
+<script>
+    $(function(){
+        referrerpolicytest_strictorigin_httpstohttps_check("{{ test_id }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+    });
+</script>

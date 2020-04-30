@@ -1,0 +1,20 @@
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: default-src {{ value }} <br />
+
+<script src="/contentsecuritypolicytest/defaultsrc_script/{{ test_id }}/{{ value }}" nonce="validnonce"></script>
+<script>{{ inline_script }}</script>
+<img src='javascript:{{ url_script }}' />
+
+<script src="/contentsecuritypolicytest/defaultsrc_unsafeeval_script/{{ test_id }}/{{ value }}" nonce="validnonce"></script>
+<script>{{ unsafeeval_inline_script }}</script>
+<img src='javascript:{{ unsafeeval_url_script }}' />
+
+
+<script src="/contentsecuritypolicytest/defaultsrc_strictdynamic_script/{{ test_id }}/{{ value }}" nonce="validnonce"></script>
+<script>{{ strictdynamic_inline_script }}</script>
+<img src='javascript:{{ strictdynamic_url_script }}' />
+
+<script src="{{ external_origin }}/contentsecuritypolicytest/defaultsrc_script/{{ test_id }}/{{ value }}_external" nonce="validnonce"></script>
+<script src="{{ external_origin }}/contentsecuritypolicytest/defaultsrc_unsafeeval_script/{{ test_id }}/{{ value }}_external" nonce="validnonce"></script>
+<script src="{{ external_origin }}/contentsecuritypolicytest/defaultsrc_strictdynamic_script/{{ test_id }}/{{ value }}_external" nonce="validnonce"></script>

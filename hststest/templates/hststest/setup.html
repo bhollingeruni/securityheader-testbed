@@ -1,0 +1,8 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: HSTS <br />
+
+<iframe src="{{ external_origin }}/hststest/frame/{{ test_id }}/"></iframe>

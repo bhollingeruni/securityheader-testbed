@@ -1,0 +1,18 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+<script src="{% static 'referrerpolicytest/script_noreferrerwhendowngrade_setup.js'%}"></script>
+
+Header: referrer-policy <br />
+Value: no-referrer-when-downgrade (HTTPS to HTTP)
+
+
+<script>
+    $(function(){
+        referrerpolicytest_noreferrerwhendowngrade_httpstohttp_check("{{ test_id }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+    });
+</script>

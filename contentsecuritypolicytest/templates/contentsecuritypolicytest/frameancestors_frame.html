@@ -1,0 +1,17 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'contentsecuritypolicytest/script_frameancestors_setup.js'%}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: frame-ancestors {{ value }}
+
+<script>
+    $(function(){
+        contentsecuritypolicytest_frameancestors_check("{{ test_id }}", "{{ value }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+    });
+</script>

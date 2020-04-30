@@ -1,0 +1,34 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: HSTS frame<br />
+
+<div id="hsts_frame_container">
+
+</div>
+
+<script>
+    // send request for different header scenarios
+    send_setup_request()
+        .then(insert_iframes);
+
+    // Ajax requests are not redirected by HSTS apparently
+    function insert_iframes() {
+        $("#hsts_frame_container").html('<iframe src="{{ external_origin }}/hststest/check_scheme/{{ test_id }}/"/><iframe src="{{ external_subdomain_origin }}/hststest/check_scheme_subdomain/{{ test_id }}/"/>');
+    }
+
+    function send_setup_request() {
+        var method = "GET";
+        var xhrFields = {};
+        var headers = {};
+
+        return $.ajax({
+            method: method,
+            xhrFields: xhrFields,
+            headers: headers,
+            url: "{{ external_secure_origin }}/hststest/check_setup/{{ test_id }}/"
+        });
+    }
+</script>

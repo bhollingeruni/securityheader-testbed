@@ -1,0 +1,34 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+Header: referrer-policy <br />
+Value: origin
+
+
+<script>
+    function referrerpolicytest_origin_http_check(test_id) {
+        return $.ajax({
+            url: "/referrerpolicytest/origin_check/" + test_id + "/http?querystring=exists"
+        });
+    }
+
+    function referrerpolicytest_origin_https_check(test_id) {
+        return $.ajax({
+            url: "{{ current_secure_origin}}/referrerpolicytest/origin_check/" + test_id + "/https?querystring=exists"
+        });
+    }
+
+    $(function(){
+        referrerpolicytest_origin_http_check("{{ test_id }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+        referrerpolicytest_origin_https_check("{{ test_id }}")
+            .done(function(result) {
+                console.log(result);
+                //save_result("{{ test_id }}", "refererpolicy_none_secure", result);
+            });
+    });
+</script>

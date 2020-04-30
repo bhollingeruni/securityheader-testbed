@@ -1,0 +1,47 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'browsertest/style.css' %}">
+<script>
+    var test_results = {};
+    var test_id = "{{ test_id }}";
+    var subdomain_origin = "{{ subdomain_origin }}";
+    var current_origin = "{{ current_origin }}";
+    var current_secure_origin = "{{ current_secure_origin }}";
+    var external_origin = "{{ external_origin }}";
+    var external_secure_origin = "{{ external_secure_origin }}";
+</script>
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'browsertest/js-cookie-2.2.1.js' %}"></script>
+<script src="{% static 'cookietest/script.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+<h1>Browsertest</h1>
+
+<dl>
+    <dt>
+        Test ID
+    </dt>
+    <dd>
+        {{ test_id }}
+    </dd>
+</dl>
+
+{% include "cookietest/result_table.html" with test_id=test_id current_origin=current_origin current_secure_origin=current_secure_origin external_origin=external_origin external_secure_origin=external_secure_origin %}
+
+<div id="result">
+
+</div>
+
+<a href="/browsertest/test/{{ test_id }}/xcontenttypeoptions" style="font-size: 24px;" tabindex="0">Next test: X-Content-Type-Options</a>
+
+<script type="application/javascript">
+
+    $.when(
+        cookie_tests(),
+    ).done( function () {
+        $('#result').html('Tests finished');
+        console.log('Tests finished');
+        console.log(test_results);
+    });
+
+</script>
+

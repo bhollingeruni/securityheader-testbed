@@ -1,0 +1,218 @@
+{% load static %}
+<script>
+    var test_id = "{{ test_id }}";
+</script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+<script src="{% static 'xframeoptionstest/script.js' %}"></script>
+
+<h2>X-Frame-Options tests {{ test_id }}</h2>
+<p>
+    Please wait until no frames are loading anymore. Some frames need to be checked manually. Please do this by clicking the
+    corresponding button below each frame. A frame was loaded if it displays "Loaded successfully". <br />
+    Bitte warten Sie bis keine Frames mehr geladen werden. Einige der Frames müssen manuell überprüft werden. Dies können Sie tun,
+    indem sie die entsprechenden Buttons unter den Frames klicken. Ein Frame wurde Erfolgreich geladen, wenn es den Text "Loaded successfully" anzeigt.
+</p>
+<dl>
+    <!-- None ------------------------------------------------------------------------------------------------ -->
+    <dt>
+        X-Frame-Options (none, iframe)
+    </dt>
+    <dd>
+        <iframe tabindex="-1" src="/xframeoptionstest/none_setup/{{ test_id }}/" id="xframeoptions_none_iframe" class="check-on-load"></iframe>
+    </dd>
+    <br />
+    <dt>
+        X-Frame-Options (none, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="/xframeoptionstest/none_setup/{{ test_id }}/" />
+        </div>
+        <div id="xframeoptions_none_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_none_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_none_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (none, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="/xframeoptionstest/none_setup/{{ test_id }}/" id="xframeoptions_none_object" class="check-on-load"></object>
+        </div>
+    </dd>
+
+    <!-- Deny ------------------------------------------------------------------------------------------------ -->
+
+    <dt>
+        X-Frame-Options (deny, iframe)
+    </dt>
+    <dd>
+        <iframe tabindex="-1" src="/xframeoptionstest/deny_setup/{{ test_id }}/" id="xframeoptions_deny_iframe" class="check-on-load"></iframe>
+    </dd>
+    <dt>
+        X-Frame-Options (deny, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="/xframeoptionstest/deny_setup/{{ test_id }}/" />
+        </div>
+        <div id="xframeoptions_deny_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_deny_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_deny_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (deny, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="/xframeoptionstest/deny_setup/{{ test_id }}/" id="xframeoptions_deny_object" class="check-on-load"></object>
+        </div>
+    </dd>
+
+    <!-- Sameorigin, valid  ------------------------------------------------------------------------------------------------ -->
+
+    <dt>
+        X-Frame-Options (sameorigin, valid, iframe)
+    </dt>
+    <dd>
+        <iframe tabindex="-1" src="/xframeoptionstest/sameorigin_setup/{{ test_id }}/" id="xframeoptions_sameorigin_valid_iframe" class="check-on-load"></iframe>
+    </dd>
+    <dt>
+        X-Frame-Options (sameorigin, valid, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="/xframeoptionstest/sameorigin_setup/{{ test_id }}/"/>
+        </div>
+        <div id="xframeoptions_sameorigin_valid_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_sameorigin_valid_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_sameorigin_valid_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (sameorigin, valid, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="/xframeoptionstest/sameorigin_setup/{{ test_id }}/" id="xframeoptions_sameorigin_valid_object" class="check-on-load"></object>
+        </div>
+    </dd>
+
+    <!-- Sameorigin, invalid ------------------------------------------------------------------------------------------------ -->
+
+    <dt>
+        X-Frame-Options (sameorigin, invalid, iframe)
+    </dt>
+    <dd>
+        <!-- This iframe needs to be checked manually, since the SOP prevents automatic checks from the embedding page -->
+        <iframe tabindex="-1" src="{{ subdomain_origin }}/xframeoptionstest/sameorigin_setup/{{ test_id }}/"></iframe>
+        <div id="xframeoptions_sameorigin_invalid_iframe" class="check-manually">
+            <input type="radio" name="xframeoptions_sameorigin_invalid_iframe" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_sameorigin_invalid_iframe" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (sameorigin, invalid, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="{{ subdomain_origin }}/xframeoptionstest/sameorigin_setup/{{ test_id }}/" />
+        </div>
+        <div id="xframeoptions_sameorigin_invalid_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_sameorigin_invalid_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_sameorigin_invalid_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (sameorigin, invalid, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="{{ subdomain_origin }}/xframeoptionstest/sameorigin_setup/{{ test_id }}/"></object>
+        </div>
+        <div id="xframeoptions_sameorigin_invalid_object" class="check-manually">
+            <input type="radio" name="xframeoptions_sameorigin_invalid_object" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_sameorigin_invalid_object" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+
+    <!-- Allow-from, valid ------------------------------------------------------------------------------------------------ -->
+
+    <dt>
+        X-Frame-Options (allow-from, valid, iframe)
+    </dt>
+    <dd>
+        <iframe tabindex="-1" src="/xframeoptionstest/allowfrom_valid_setup/{{ test_id }}/"></iframe>
+        <div id="xframeoptions_allowfrom_valid_iframe" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_valid_iframe" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_valid_iframe" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+
+    </dd>
+    <dt>
+        X-Frame-Options (allow-from, valid, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="/xframeoptionstest/allowfrom_valid_setup/{{ test_id }}/"/>
+        </div>
+        <div id="xframeoptions_allowfrom_valid_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_valid_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_valid_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+
+    </dd>
+    <dt>
+        X-Frame-Options (allow-from, valid, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="/xframeoptionstest/allowfrom_valid_setup/{{ test_id }}/"></object>
+        </div>
+        <div id="xframeoptions_allowfrom_valid_object" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_valid_object" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_valid_object" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+
+    </dd>
+
+
+    <!-- Allow-from, invalid ------------------------------------------------------------------------------------------------ -->
+    <dt>
+        X-Frame-Options (allow-from, invalid, iframe)
+    </dt>
+    <dd>
+        <iframe tabindex="-1" src="/xframeoptionstest/allowfrom_invalid_setup/{{ test_id }}/"></iframe>
+        <div id="xframeoptions_allowfrom_invalid_iframe" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_invalid_iframe" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_invalid_iframe" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (allow-from, invalid, embed)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <embed tabindex="-1" src="/xframeoptionstest/allowfrom_invalid_setup/{{ test_id }}/"/>
+        </div>
+        <div id="xframeoptions_allowfrom_invalid_embed" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_invalid_embed" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_invalid_embed" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+    <dt>
+        X-Frame-Options (allow-from, invalid, object)
+    </dt>
+    <dd>
+        <div style="min-height: 150px;">
+            <object tabindex="-1" data="/xframeoptionstest/allowfrom_invalid_setup/{{ test_id }}/"></object>
+        </div>
+        <div id="xframeoptions_allowfrom_invalid_object" class="check-manually">
+            <input type="radio" name="xframeoptions_allowfrom_invalid_object" value="resource_loaded">Successfully loaded - Erfolgreich geladen <br/>
+            <input type="radio" name="xframeoptions_allowfrom_invalid_object" value="resource_not_loaded">Not loaded - Nicht geladen
+        </div>
+    </dd>
+
+</dl>

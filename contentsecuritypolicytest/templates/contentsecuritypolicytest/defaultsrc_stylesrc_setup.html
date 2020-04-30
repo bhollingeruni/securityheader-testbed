@@ -1,0 +1,67 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: content-security-policy <br />
+Directive: default-src {{ value }} <br />
+<link href="/contentsecuritypolicytest/defaultsrc_stylesrc_stylesheet/{{ test_id }}/{{ value }}/link_element" rel="stylesheet" type="text/css" />
+<link href="{{ external_origin }}/contentsecuritypolicytest/defaultsrc_stylesrc_stylesheet/{{ test_id }}/{{ value }}/link_element_external" rel="stylesheet" type="text/css" />
+
+<style nonce="validnonce">{{ inline_stylesheet }}</style>
+
+<style nonce="validnonce">
+    @import url("/contentsecuritypolicytest/defaultsrc_stylesrc_stylesheet/{{ test_id }}/{{ value }}/import") screen;
+    @import url("{{ external_origin }}/contentsecuritypolicytest/defaultsrc_stylesrc_stylesheet/{{ test_id }}/{{ value }}/import_external") screen;
+</style>
+
+
+<div id="link_element" class="test_element">Link element</div>
+<div id="link_element_external" class="test_element">Link element external</div>
+<div id="link_header" class="test_element">Link header</div>
+<div id="link_header_external" class="test_element">Link header external</div>
+<div id="inline" class="test_element">Inline</div>
+<div id="import" class="test_element">Import</div>
+<div id="import_external" class="test_element">Import external</div>
+<div id="attribute" class="test_element" style="opacity:0.9">Attribute</div>
+<div id="js_setattribute" class="test_element">JS setAttribute</div>
+<!-- This should be allowed -->
+<div id="js_style" class="test_element">JS style</div>
+<div id="js_eval_insertrule" class="test_element">JS eval insertRule</div>
+<div id="js_eval_csstext" class="test_element">JS eval cssText</div>
+
+<script>
+    $(document).ready(function(){
+        document.querySelector('#js_setattribute').setAttribute('style', 'opacity:0.9;');
+        document.querySelector('#js_style').style.opacity = '0.9';
+        eval_insertrule();
+        eval_csstext();
+
+        $(".test_element").each(function(){
+            if ($(this).css("opacity") == "0.9")
+            {
+                var request = new XMLHttpRequest();
+                request.addEventListener("load", function(){});
+                request.open("GET", "/contentsecuritypolicytest/defaultsrc_check/{{ test_id }}/stylesrc_" + $(this).attr("id")) + "_{{ value }}/";
+                request.send();
+            }
+        })
+    });
+
+
+    function eval_insertrule(){
+        var style_element = document.createElement('style');
+        style_element.appendChild(document.createTextNode(""));
+        document.head.appendChild(style_element);
+        var style_sheet = style_element.sheet;
+        if (style_sheet)
+        {
+            style_sheet.insertRule('#js_eval_insertrule { opacity: 0.9 }', 0);
+        }
+    }
+
+    function eval_csstext(){
+        var elem = document.querySelector("#js_eval_csstext");
+        elem.style.cssText = "opacity: 0.9;"
+    }
+
+</script>

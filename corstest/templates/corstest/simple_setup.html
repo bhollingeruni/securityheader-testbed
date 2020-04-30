@@ -1,0 +1,84 @@
+{% load static %}
+<script src="{% static 'browsertest/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'saveresult/global.js'%}"></script>
+
+Test-ID: {{ test_id }} <br />
+Header: CORS (simple requests) <br />
+
+<script>
+    // send request for different header scenarios
+    send_requests("default");
+    send_requests("origin_null");
+    send_requests("origin_all");
+    send_requests("origin_valid");
+    send_requests("origin_scheme_invalid");
+    send_requests("origin_domain_invalid");
+    send_requests("origin_port_invalid");
+    send_requests("exposeheader_valid");
+    send_requests("exposeheader_invalid");
+
+    /**
+     * Sends two requests for each header value, one to the current origin and one cross origin.
+     * @param value
+     */
+    function send_requests(value) {
+        var method = "GET";
+        var xhrFields = {};
+        var headers = {};
+
+        var jqxhr = $.ajax({
+            method: method,
+            xhrFields: xhrFields,
+            headers: headers,
+            url: "{{ current_origin }}/corstest/resource/{{ test_id }}/{{ mode }}/" + value + "/"
+        }).done(function(response) {
+            report_result(response, value);
+            if (jqxhr.getResponseHeader("X-Responsetestheader") == "valid") {
+                save_result("{{ test_id }}", "cors_{{ mode }}_" + value + "_resource", "header_accessed");
+            }
+            else {
+                save_result("{{ test_id }}", "cors_{{ mode }}_" + value + "_resource", "header_not_accessed");
+            }
+        }).fail(function() {
+            report_result("error", value);
+        });
+
+
+        // request to cross-domain origins from here on out
+
+        // change the value identifer to differentiate between same and cross origin requests when logging on server
+        var external_value = value + "_external";
+
+        var jqxhr_external = $.ajax({
+            method: method,
+            xhrFields: xhrFields,
+            headers: headers,
+            url: "{{ external_origin }}/corstest/resource/{{ test_id }}/{{ mode }}/" + external_value + "/"
+        }).done(function(response) {
+            report_result(response, external_value);
+            if (jqxhr_external.getResponseHeader("X-Responsetestheader") == "valid") {
+                save_result("{{ test_id }}", "cors_{{ mode }}_" + external_value + "_resource", "header_accessed");
+            }
+            else {
+                save_result("{{ test_id }}", "cors_{{ mode }}_" + external_value + "_resource", "header_not_accessed");
+            }
+        }).fail(function() {
+            report_result("error", external_value);
+        });
+    }
+
+
+    /**
+     * Reports the result to the server for logging.
+     * @param response
+     * @param value
+     */
+    function report_result(response, value) {
+        if (response == "{{ test_id }}"){
+            save_result("{{ test_id }}", "cors_{{ mode }}_" + value + "_resource", "resource_received");
+        }
+        else {
+            save_result("{{ test_id }}", "cors_{{ mode }}_" + value + "_resource", "resource_not_received");
+        }
+    }
+</script>
